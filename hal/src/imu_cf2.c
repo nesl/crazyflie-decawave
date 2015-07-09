@@ -46,7 +46,7 @@
 #include "param.h"
 #include "log.h"
 
-#define IMU_ENABLE_PRESSURE_LPS25H
+//#define IMU_ENABLE_PRESSURE_LPS25H
 #define IMU_ENABLE_MAG_AK8963
 //#define IMU_MPU6500_DLPF_256HZ
 
