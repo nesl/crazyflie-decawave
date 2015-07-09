@@ -67,6 +67,7 @@
 #define STABILIZER_TASK_PRI     4
 #define SYSLINK_TASK_PRI        3
 #define USBLINK_TASK_PRI        3
+#define DECARANGING_TASK_PRI	4
 //CF1
 #define ADC_TASK_PRI            0
 #define PM_TASK_PRI             0
@@ -90,6 +91,7 @@
 #define ESKYLINK_TASK_NAME      "ESKYLINK"
 #define SYSLINK_TASK_NAME       "SYSLINK"
 #define USBLINK_TASK_NAME       "USBLINK"
+#define DECARANGING_TASK_NAME	"DECARANGING"
 //Task stack sizes
 #define SYSTEM_TASK_STACKSIZE         (2* configMINIMAL_STACK_SIZE)
 #define ADC_TASK_STACKSIZE            configMINIMAL_STACK_SIZE
@@ -105,6 +107,7 @@
 #define ESKYLINK_TASK_STACKSIZE       configMINIMAL_STACK_SIZE
 #define SYSLINK_TASK_STACKSIZE        configMINIMAL_STACK_SIZE
 #define USBLINK_TASK_STACKSIZE        configMINIMAL_STACK_SIZE
+#define DECARANGING_TASK_STACKSIZE	  configMINIMAL_STACK_SIZE
 
 //The radio channel. From 0 to 125
 #define RADIO_CHANNEL 80

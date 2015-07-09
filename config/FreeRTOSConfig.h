@@ -125,6 +125,7 @@ to exclude the API function. */
 #define TASK_STABILIZER_ID_NBR  3
 #define TASK_ADC_ID_NBR         4
 #define TASK_PM_ID_NBR          5
+#define TASK_DECARANGING_ID_NBR 6
 
 #define configASSERT( x )  if( ( x ) == 0 ) assertFail(#x, __FILE__, __LINE__ )
 /*
