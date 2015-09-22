@@ -57,6 +57,8 @@
 #include "expbrd.h"
 #include "mem.h"
 
+#include "decaranging.h"
+
 /* Private variable */
 static bool selftestPassed;
 static bool canFly;
@@ -150,6 +152,8 @@ void systemTask(void *arg)
   stabilizerInit();
   expbrdInit();
   memInit();
+  // init decaranging
+  dw_init();
   
   //Test the modules
   pass &= systemTest();

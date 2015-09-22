@@ -31,6 +31,9 @@
 #include "ws2812.h"
 #include "usb_core.h"
 
+// decaranging API
+#include "deca_ranging.h"
+
 #define DONT_DISCARD __attribute__((used))
 
 void nvicInit(void)
@@ -203,7 +206,17 @@ void DONT_DISCARD EXTI15_10_IRQHandler(void)
 
 void DONT_DISCARD EXTI4_IRQHandler(void)
 {
-  uartTxenFlowctrlIsr();
+  // Decaranging edit: we're using EXTI for DW1000 IRQ line
+  //uartTxenFlowctrlIsr();
+
+  /* Make sure that interrupt flag is set */
+  if (EXTI_GetITStatus(EXTI_Line4) != RESET) {
+
+    decaranging_isr();
+
+    /* Clear interrupt flag */
+    EXTI_ClearITPendingBit(EXTI_Line4);
+  }
 }
 
 void DONT_DISCARD USART2_IRQHandler(void)

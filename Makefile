@@ -32,6 +32,9 @@ REV               ?= E
 #OpenOCD conf
 RTOS_DEBUG        ?= 0
 
+# Decawave Ranging Library configuration
+DECARANGE_LIB = ../MobileRadar/src/arm/common/decaranging
+
 ############### Location configuration ################
 FREERTOS = lib/FreeRTOS
 ifeq ($(USE_FPU), 1)
@@ -88,6 +91,10 @@ else
 	VPATH += init hal/src modules/src utils/src drivers/src
 endif
 
+# DecaRanging source files
+VPATH += $(DECARANGE_LIB)/decadriver/src
+VPATH += $(DECARANGE_LIB)/ranging/src
+
 
 ############### Source files configuration ################
 
@@ -123,7 +130,6 @@ PROJ_OBJ += system.o comm.o console.o pid.o crtpservice.o param.o mem.o platform
 PROJ_OBJ += commander.o controller.o sensfusion6.o stabilizer.o
 PROJ_OBJ += log.o worker.o neopixelring.o expbrd.o
 
-
 # Expansion boards
 PROJ_OBJ += exptest.o
 
@@ -131,12 +137,18 @@ PROJ_OBJ += exptest.o
 PROJ_OBJ += filter.o cpuid.o cfassert.o configblockeeprom.o eprintf.o crc.o fp16.o debug.o
 PROJ_OBJ += version.o
 
+# DecaRanging objects
+DECARANGING_OBJ = deca_device.o deca_params_init.o deca_range_tables.o deca_ranging.o
+DECARANGING_OBJ += decaranging.o
+# RNG for DecaRanging
+DECARANGING_OBJ += stm32f4xx_rng.o
 
-OBJ = $(CRT0) $(FREERTOS_OBJ) $(PORT_OBJ) $(ST_OBJ) $(PROJ_OBJ)
+OBJ = $(CRT0) $(FREERTOS_OBJ) $(PORT_OBJ) $(ST_OBJ) $(PROJ_OBJ) $(DECARANGING_OBJ)
 
 ifdef P
   C_PROFILE = -D P_$(P)
 endif
+
 
 ############### Compilation configuration ################
 AS = $(CROSS_COMPILE)as
@@ -160,6 +172,9 @@ INCLUDES+= -I$(STLIB)/STM32_CPAL_Driver/devices/stm32f4xx
 INCLUDES+= -I$(STLIB)/CMSIS/STM32F4xx/Include 
 endif
 
+# DecaRanging Includes
+INCLUDES+= -I$(DECARANGE_LIB)/decadriver/inc
+INCLUDES+= -I$(DECARANGE_LIB)/ranging/inc
 
 
 ifeq ($(USE_FPU), 1)
