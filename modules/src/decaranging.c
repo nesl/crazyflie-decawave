@@ -30,6 +30,9 @@ void dw_init()
 			dw_rng_float      // random number generator (float)
         );
 
+  	// increase SPI frequency to accomodate short turnaround times
+  	dw_spi_configprescaler(16); // was 32
+
 	// set up task timer
 	timer = xTimerCreate( (const signed char *)"decaTimer", M2T(RANGE_PERIOD_MS),
 				pdTRUE, NULL, dw_timer_callback );
